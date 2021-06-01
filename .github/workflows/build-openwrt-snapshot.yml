@@ -135,6 +135,11 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Settings
+      id: settings
+      run: |
+        echo -e "$(($(nproc)+1)) Threads to compile with."
+
     - name: Compile the firmware (Debug)
       id: compiledebug
       if: env.DEBUG_COMPILE == 'true'
