@@ -15,7 +15,7 @@
 
 
 ### sirpdboy-package
-git clone https://github.com/siropboy/sirpdboy-package.git package/sirpdboy-package
+#git clone https://github.com/siropboy/sirpdboy-package.git package/sirpdboy-package
 
 ### ----------------------------------------------------------------------------- ###
 ### THEMES ###
