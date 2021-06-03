@@ -106,6 +106,9 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
+    - name: Uninstall feeds Package
+      run: cd openwrt && ./scripts/feeds uninstall bluld
+
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
