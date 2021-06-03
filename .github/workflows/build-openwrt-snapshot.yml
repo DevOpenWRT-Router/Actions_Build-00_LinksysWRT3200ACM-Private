@@ -41,6 +41,7 @@ env:
   UPLOAD_PACKAGES: true
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
+  UPLOAD_GOFILE: false
   UPLOAD_CATBOX: false
   UPLOAD_FILEIO: false
   UPLOAD_RELEASE: true
@@ -219,6 +220,15 @@ jobs:
       with:
         name: OpenWrt_logs${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${GITHUB_WORKSPACE}/openwrt/logs/
+
+    - name: Upload firmware to gofile
+      id: gofile
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_GOFILE == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer gof -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee gofile.log
+        echo "::warning file=gofile.io::$(cat gofile.log | grep https)"
+        echo "::set-output name=url::$(cat gofile.log | grep https | cut -f3 -d" ")"
 
     - name: Upload firmware to catbox
       id: catbox
