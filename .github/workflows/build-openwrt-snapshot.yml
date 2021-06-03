@@ -107,7 +107,11 @@ jobs:
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: Uninstall feeds Package
-      run: cd openwrt && ./scripts/feeds uninstall bluld
+      run: |
+           file=./uninstall.txt
+           while read -r line; do
+           cd openwrt && ./scripts/feeds uninstall $line
+           done < "$file"
 
     - name: Load custom configuration
       run: |
