@@ -41,7 +41,7 @@ env:
   UPLOAD_PACKAGES: true
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
+  UPLOAD_CATBOX: false
   UPLOAD_FILEIO: false
   UPLOAD_RELEASE: true
   TZ: America/New_York
@@ -220,14 +220,14 @@ jobs:
         name: OpenWrt_logs${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${GITHUB_WORKSPACE}/openwrt/logs/
 
-    - name: Upload firmware to cowtransfer
-      id: cowtransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+    - name: Upload firmware to catbox
+      id: catbox
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_CATBOX == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
+        ./transfer cat --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee catbox.log
+        echo "::warning file=catbox.moe::$(cat catbox.log | grep https)"
+        echo "::set-output name=url::$(cat catbox.log | grep https | cut -f3 -d" ")"
 
     - name: Upload firmware to fileio
       id: fileio
