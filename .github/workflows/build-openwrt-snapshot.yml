@@ -42,6 +42,7 @@ env:
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_GOFILE: false
+  UPLOAD_LITTERBOX: false
   UPLOAD_CATBOX: false
   UPLOAD_FILEIO: false
   UPLOAD_RELEASE: true
@@ -229,6 +230,15 @@ jobs:
         ./transfer gof -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee gofile.log
         echo "::warning file=gofile.io::$(cat gofile.log | grep https)"
         echo "::set-output name=url::$(cat gofile.log | grep https | cut -f3 -d" ")"
+
+    - name: Upload firmware to litterbox
+      id: litterbox
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_LITTERBOX == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer lit -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee litterbox.log
+        echo "::warning file=litterbox.catbox.moe::$(cat litterbox.log | grep https)"
+        echo "::set-output name=url::$(cat litterbox.log | grep https | cut -f3 -d" ")"
 
     - name: Upload firmware to catbox
       id: catbox
