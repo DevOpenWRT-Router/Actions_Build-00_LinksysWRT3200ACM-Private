@@ -1,3 +1,10 @@
+# Custom Changes Created By Eliminater74
+- Added some small changes to allow for a more complete control over the build pocess
+
+
+
+
+############################################################################################################
 # Actions-OpenWrt
 
 [![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/P3TERX/Actions-OpenWrt/blob/master/LICENSE)
