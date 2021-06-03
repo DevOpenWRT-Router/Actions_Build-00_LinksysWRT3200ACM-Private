@@ -222,6 +222,7 @@ jobs:
         name: OpenWrt_logs${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${GITHUB_WORKSPACE}/openwrt/logs/
 
+############################################################################################################################
     - name: Upload firmware to gofile
       id: gofile
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_GOFILE == 'true' && !cancelled()
@@ -257,6 +258,7 @@ jobs:
         ./transfer fio -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee fileio.log
         echo "::warning file=file.io::$(cat fileio.log | grep https)"
         echo "::set-output name=url::$(cat fileio.log | grep https | cut -f3 -d" ")"
+############################################################################################################################
 
     - name: Generate release tag
       id: tag
