@@ -106,8 +106,12 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+    - name: Install feeds Package
+      run: |
+           file=./install.txt
+           while read -r line; do
+           cd openwrt && ./scripts/feeds install $line
+           done < "$file"
 
     - name: Uninstall feeds Package
       run: |
@@ -155,7 +159,7 @@ jobs:
 
     - name: Compile the firmware (Debug)
       id: compiledebug
-      if: env.DEBUG_COMPILE == 'true'
+      if: env.DEBUG_COMPILE == 'true' && env.IGNORE_COMPILE == 'false'
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
@@ -167,7 +171,7 @@ jobs:
 
     - name: Compile the firmware (ignore Errors)
       id: compileignore
-      if: env.IGNORE_COMPILE == 'true'
+      if: env.IGNORE_COMPILE == 'true' && env.DEBUG_COMPILE == 'false'
       run: |
         cd openwrt
         echo -e "$(($(nproc)+1)) thread compile"
@@ -179,7 +183,7 @@ jobs:
 
     - name: Compile the firmware
       id: compile
-      if: env.DEBUG_COMPILE == 'false'
+      if: env.DEBUG_COMPILE == 'false' && env.IGNORE_COMPILE == 'false'
       run: |
         cd openwrt
         echo -e "$(($(nproc)+1)) thread compile"
