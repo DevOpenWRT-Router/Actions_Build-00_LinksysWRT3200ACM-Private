@@ -149,6 +149,7 @@ jobs:
       run: |
         echo -e "$(($(nproc)+1)) Threads to compile with."
         echo -e "Creating (logs) Directory:"
+        cd openwrt
         mkdir -p logs
 
     - name: Compile the firmware (Debug)
