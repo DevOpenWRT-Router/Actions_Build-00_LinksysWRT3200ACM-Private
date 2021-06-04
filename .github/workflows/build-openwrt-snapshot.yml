@@ -103,8 +103,12 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+    - name: Update feeds Package
+      run: |
+           file=./feeds_update.txt
+           while read -r line; do
+           cd openwrt && ./scripts/feeds update $line
+           done < "$file"
 
     - name: Install feeds Package
       run: |
