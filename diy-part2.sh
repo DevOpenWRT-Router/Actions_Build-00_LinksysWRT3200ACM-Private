@@ -77,6 +77,18 @@ printf 'CONFIG_CCACHE=y\n' >> .config
 echo "Seeding .config (enable logs):"
 printf 'CONFIG_BUILD_LOG=y\n' >> .config
 
+echo "Checking architecture:"
+grep -sq CONFIG_TARGET_mvebu=y .config
+echo "property 'libc' set:"
+sed -ne '/^CONFIG_LIBC=/ { s!^CONFIG_LIBC="\(.*\)"!\1!; s!^musl$!!; s!.\+!-&!p }' .config
+
+### -----------------------------------[CCACHE HOLD]---------------------------------- ###
+#echo "Setting ccache directory:"
+#export CCACHE_DIR=openwrt/.ccache
+#echo "Fix Sloppiness of ccache:"
+#ccache --set-config=sloppiness=file_macro,locale,time_macros
+### ---------------------------------------------------------------------------------- ###
+
 ### Delete the default password
 # sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-default-settings
 
