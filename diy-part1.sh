@@ -16,7 +16,7 @@
 ### luci-app-cpufreq
 git clone https://github.com/roacn/luci-app-cpufreq.git package/luci-app-cpufreq
 ### luci-app-log
-git clone https://github.com/gSpotx2f/luci-app-log.git package/luci-app-log
+git clone https://github.com/DevOpenWRT-Router/luci-app-log.git package/luci-app-log
 ### luci-app-mqos
 git clone https://github.com/WROIATE/luci-app-mqos.git package/luci-app-mqos
 ### luci-app-serverchan
