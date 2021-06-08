@@ -15,7 +15,7 @@ src-git freifunk https://github.com/freifunk/openwrt-packages.git
 src-git opentomato https://github.com/solidus1983/luci-theme-opentomato.git
 
 ### luci-theme-infinityfreedom
-src-git infinityfreedom https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom.git
+#src-git infinityfreedom https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom.git
 ### --------------------------------------------------------------------------------------- ###
 
 ### sirpdboy-package commonly used plug-ins ###
