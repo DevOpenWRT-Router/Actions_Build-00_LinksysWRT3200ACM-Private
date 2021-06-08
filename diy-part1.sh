@@ -13,6 +13,14 @@
 ### Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
+### luci-app-cpufreq
+git clone https://github.com/roacn/luci-app-cpufreq.git package/luci-app-cpufreq
+### luci-app-log
+git clone https://github.com/gSpotx2f/luci-app-log.git package/luci-app-log
+### luci-app-mqos
+git clone https://github.com/WROIATE/luci-app-mqos.git package/luci-app-mqos
+### luci-app-serverchan
+git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
 
 ### sirpdboy-package
 #git clone https://github.com/siropboy/sirpdboy-package.git package/sirpdboy-package
