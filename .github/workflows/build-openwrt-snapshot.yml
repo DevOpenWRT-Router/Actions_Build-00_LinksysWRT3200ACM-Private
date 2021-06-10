@@ -171,7 +171,7 @@ jobs:
     - name: Settings
       id: settings
       run: |
-        echo -e "$(($(nproc)+1)) Threads to compile with."
+        echo -e "$(nproc) Threads to compile with."
         echo -e "Creating (logs) Directory:"
         cd openwrt
         mkdir -p logs
@@ -182,7 +182,7 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(($(nproc)+1)) V=s 2>&1 | tee logs/build.log | grep -i -E "^make.*(error|[12345]...Entering directory)"
+        make -j$(nproc) V=s 2>&1 | tee logs/build.log | grep -i -E "^make.*(error|[12345]...Entering directory)"
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -193,8 +193,8 @@ jobs:
       if: env.IGNORE_COMPILE == 'true' && env.DEBUG_COMPILE == 'false'
       run: |
         cd openwrt
-        echo -e "$(($(nproc)+1)) thread compile"
-        IGNORE_ERRORS=1 make -j$(($(nproc)+1)) -i V=s 2>&1 | tee logs/build.log | grep -i -E "^make.*(error|[12345]...Entering directory)"
+        echo -e "$(nproc) thread compile"
+        IGNORE_ERRORS=1 make -j$(nproc) -i V=s 2>&1 | tee logs/build.log | grep -i -E "^make.*(error|[12345]...Entering directory)"
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -205,8 +205,8 @@ jobs:
       if: env.DEBUG_COMPILE == 'false' && env.IGNORE_COMPILE == 'false'
       run: |
         cd openwrt
-        echo -e "$(($(nproc)+1)) thread compile"
-        make -j$(($(nproc)+1)) || make -j1 V=s 2>&1 | tee logs/build.log | grep -i -E "^make.*(error|[12345]...Entering directory)"
+        echo -e "$(nproc) thread compile"
+        make -j$(nproc) || make -j1 V=s 2>&1 | tee logs/build.log | grep -i -E "^make.*(error|[12345]...Entering directory)"
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
